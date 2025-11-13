@@ -16,12 +16,13 @@
 |---|---|---|
 | id | bigint | 主キー |
 | name | varchar(100) | 商品名 |
-| sku | varchar(50) | 管理コード（ユニーク） |
+| product_code | varchar(50) | 商品管理番号 |
+| current_stock | int | 在庫 |
 | safety_stock | int | 安全在庫 |
 | lead_time_days | smallint | 発注リードタイム（日） |
 | created_at / updated_at | timestamp | 監査用 |
 
-**補足**：`sku` はユニーク制約。
+**補足**：`product_code` はユニーク制約。
 
 ---
 
@@ -29,14 +30,15 @@
 | カラム | 型 | 内容 |
 |---|---|---|
 | id | bigint | 主キー |
-| product_id | bigint | 外部キー → products.id |
+| product_id | bigint | 外部キー。`products.id` と1対多のリレーションを構成 |
 | type | enum('IN','OUT') | 入庫/出庫 |
 | quantity | int | 数量（正の整数） |
 | transaction_date | date | 取引日 |
 | remarks | varchar(255) | 備考（任意） |
 | created_at / updated_at | timestamp | 監査用 |
 
-**推奨インデックス**：`(product_id, transaction_date)`
+検索性能要件：特定商品の取引履歴を日付範囲で高速検索できるよう、
+(product_id, transaction_date) に複合インデックスを設定する。
 
 ---
 

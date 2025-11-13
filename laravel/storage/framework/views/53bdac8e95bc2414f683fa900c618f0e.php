@@ -1,0 +1,2 @@
+<img src="<?php echo e(asset('images/logo.jpg')); ?>" alt="商品在庫管理システム" class="w-20 h-20 object-contain">
+<?php /**PATH C:\Users\shiny\OneDrive\デスクトップ\my-portfolio\works\inventory-forecast-app\laravel\resources\views/components/application-logo.blade.php ENDPATH**/ ?>
