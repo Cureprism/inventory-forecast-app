@@ -20,7 +20,7 @@ class ProductController extends Controller
         'transactions as stock_in'  => fn($q) => $q->where('type', 'IN'),
         'transactions as stock_out' => fn($q) => $q->where('type', 'OUT'),
         ], 'quantity')
-        ->orderBy('id','asc')
+        ->orderBy('id','desc')
         ->paginate(10);
 
         // 現在庫を算出してビューへ

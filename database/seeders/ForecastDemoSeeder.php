@@ -11,42 +11,10 @@ class ForecastDemoSeeder extends Seeder
 {
     public function run(): void
     {
+        // サンプル（基準日は同一／入出庫はランダム）
         mt_srand(1234); // デモ用に乱数を固定（本番環境ではrandom_int()が使われる）
-        
         $base = Carbon::parse(env('FORECAST_BASE_DATE', '2025-11-15')); // 基準日
 
-        $p = Product::create([
-            'name'           => 'シャープペン替芯 HB',
-            'product_code'   => 'DEMO-01',
-            'price'          => 200,
-            'safety_stock'   => 10,
-            'lead_time_days' => 3,
-        ]);
-
-        // 初回入庫：11/01
-        StockTransaction::create([
-            'product_id'       => $p->id,
-            'type'             => 'IN',
-            'quantity'         => 100,
-            'transaction_date' => '2025-11-01',
-            'remarks'          => '初回入庫',
-        ]);
-
-        // 直近14日：11/02〜11/15 毎日 OUT=5
-        // （基準日 11/15 を含む14日間）
-        for ($d = 13; $d >= 0; $d--) {
-            $day = $base->copy()->subDays($d)->toDateString(); // 11/02..11/15
-            StockTransaction::create([
-                'product_id'       => $p->id,
-                'type'             => 'OUT',
-                'quantity'         => 5,
-                'transaction_date' => $day,
-                'remarks'          => '販売',
-            ]);
-        }
-
-        // ====== 残り14件：サンプル（基準日は同一／入出庫はランダム） ======
-        // 再現性が欲しければシード固定も可（mt_srand(1234);）
         $names = [
             'ノート A5', 'ノート B5', 'ボールペン 黒', 'ボールペン 赤', '消しゴム',
             '定規 15cm', '付箋 75mm', 'クリアファイル', 'メモパッド', 'マーカー セット',
@@ -54,8 +22,8 @@ class ForecastDemoSeeder extends Seeder
         ];
 
         for ($i = 0; $i < 14; $i++) {
-            $name = $names[$i] ?? ('デモ商品' . ($i + 2));
-            $code = 'DEMO-' . str_pad((string)($i + 2), 2, '0', STR_PAD_LEFT);
+            $name = $names[$i];
+            $code = mt_rand(10000000, 99999999);
 
             $product = Product::create([
                 'name'           => $name,
@@ -106,6 +74,38 @@ class ForecastDemoSeeder extends Seeder
                     'remarks'          => '補充入庫',
                 ]);
             }
+        }
+
+        // サンプル（在庫予測ロジック確認のため各値を設定）
+
+        $p = Product::create([
+            'name'           => 'シャープペン替芯 HB',
+            'product_code'   => '37692994',
+            'price'          => 200,
+            'safety_stock'   => 10,
+            'lead_time_days' => 3,
+        ]);
+
+        // 初回入庫：11/01
+        StockTransaction::create([
+            'product_id'       => $p->id,
+            'type'             => 'IN',
+            'quantity'         => 100,
+            'transaction_date' => '2025-11-01',
+            'remarks'          => '初回入庫',
+        ]);
+
+        // 直近14日：11/02〜11/15 毎日 OUT=5
+        // （基準日 11/15 を含む14日間）
+        for ($d = 13; $d >= 0; $d--) {
+            $day = $base->copy()->subDays($d)->toDateString(); // 11/02..11/15
+            StockTransaction::create([
+                'product_id'       => $p->id,
+                'type'             => 'OUT',
+                'quantity'         => 5,
+                'transaction_date' => $day,
+                'remarks'          => '販売',
+            ]);
         }
     }
 }
