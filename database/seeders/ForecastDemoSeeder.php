@@ -17,7 +17,7 @@ class ForecastDemoSeeder extends Seeder
 
         $p = Product::create([
             'name'           => 'シャープペン替芯 HB',
-            'product_code'   => 'LEAD-HB',
+            'product_code'   => 'DEMO-01',
             'price'          => 200,
             'safety_stock'   => 10,
             'lead_time_days' => 3,

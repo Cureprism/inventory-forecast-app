@@ -1,6 +1,16 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">入出庫一覧</h2>
+        <div class="relative">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                入出庫一覧
+            </h2>
+
+            <div class="absolute inset-0 flex justify-center items-center">
+                <span class="text-base text-blue-800 font-semibold">
+                    今日は {{ now()->format('Y-m-d') }} です
+                </span>
+            </div>
+        </div>
     </x-slot>
 
     <div class="py-6 max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -17,10 +27,10 @@
             <th class="px-3 py-2 text-left">日付</th>
             <th class="px-3 py-2 text-left">商品名</th>
             <th class="px-3 py-2 text-left">商品管理番号</th>
-            <th class="px-3 py-2 text-left">区分</th>
+            <th class="px-3 py-2 text-center">区分</th>
             <th class="px-3 py-2 text-right">数量</th>
             <th class="px-3 py-2 text-left">備考</th>
-            <th class="px-3 py-2 text-left">操作</th>
+            <th class="px-3 py-2 text-right">操作</th>
         </tr>
         </thead>
         <tbody class="text-sm">
