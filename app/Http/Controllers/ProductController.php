@@ -86,7 +86,7 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         if ($product->transactions()->exists()) {
-        return redirect()->route('products.index')->withErrors('入出庫履歴があるため削除できません。先に履歴を削除するか、アーカイブしてください。');
+        return redirect()->route('products.index')->with(['delete_error' => '入出庫履歴があるため削除できません。先に履歴を削除してください。']);
     }
         $product->delete();
         return redirect()->route('products.index')->with('success', '商品を削除しました');

@@ -23,7 +23,13 @@ class ForecastDemoSeeder extends Seeder
 
         for ($i = 0; $i < 14; $i++) {
             $name = $names[$i];
-            $code = mt_rand(10000000, 99999999);
+            // 実際の商品コードっぽいものをランダム生成
+            $code = strtoupper(                           
+                chr(random_int(65, 90)) .                 // 先頭の1文字（A〜Z）
+                random_int(10000, 999999) .               // 5〜6桁の数字
+                chr(random_int(65, 90)) .                 // 最後の1文字（A〜Z）
+                chr(random_int(65, 90))                   // 最後の1文字（A〜Z）
+            );
 
             $product = Product::create([
                 'name'           => $name,
@@ -80,7 +86,7 @@ class ForecastDemoSeeder extends Seeder
 
         $p = Product::create([
             'name'           => 'シャープペン替芯 HB',
-            'product_code'   => '37692994',
+            'product_code'   => 'S12345HB',
             'price'          => 200,
             'safety_stock'   => 10,
             'lead_time_days' => 3,

@@ -14,7 +14,7 @@
     </x-slot>
 
     <div class="py-6 max-w-7xl mx-auto sm:px-6 lg:px-8">
-        {{-- withErrors() 用 --}}
+        <!-- バリデーションエラー -->
         @if ($errors->any())
         <div class="alert alert-danger" role="alert">
             <ul class="m-0">
@@ -24,7 +24,13 @@
             </ul>
         </div>
         @endif
-    
+        <!-- 商品削除のエラー用 -->
+        @if (session('delete_error'))
+            <div class="text-red-600 font-semibold mb-3">
+                {{ session('delete_error') }}
+            </div>
+        @endif
+        <!-- 成功 -->
         @if (session('success'))
             <div class="mb-4 rounded bg-green-50 text-green-800 px-4 py-2 text-sm">
                 {{ session('success') }}

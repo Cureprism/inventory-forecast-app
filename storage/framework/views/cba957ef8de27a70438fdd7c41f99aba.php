@@ -23,7 +23,7 @@
      <?php $__env->endSlot(); ?>
 
     <div class="py-6 max-w-7xl mx-auto sm:px-6 lg:px-8">
-        
+        <!-- バリデーションエラー -->
         <?php if($errors->any()): ?>
         <div class="alert alert-danger" role="alert">
             <ul class="m-0">
@@ -33,7 +33,14 @@
             </ul>
         </div>
         <?php endif; ?>
-    
+        <!-- 商品削除のエラー用 -->
+        <?php if(session('delete_error')): ?>
+            <div class="text-red-600 font-semibold mb-3">
+                <?php echo e(session('delete_error')); ?>
+
+            </div>
+        <?php endif; ?>
+        <!-- 成功 -->
         <?php if(session('success')): ?>
             <div class="mb-4 rounded bg-green-50 text-green-800 px-4 py-2 text-sm">
                 <?php echo e(session('success')); ?>
