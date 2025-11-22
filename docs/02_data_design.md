@@ -2,12 +2,12 @@
 
 ## 1. テーブル構成
 - products：商品マスタ（商品一覧画面の表示内容）
-- stock_transactions：入出庫履歴（入出庫一覧画面の表示内容）
+- stock_transactions：入出庫履歴（入出庫一覧画面の表示内容）  
 ※ 在庫は IN/OUT の差分で算出するため current_stock は保持しない。
 
 関係：products (1) ── (n) stock_transactions  
 外部キー：stock_transactions.product_id → products.id
-※1つの商品に対して、複数の入出庫履歴が紐づく構成。
+※1つの商品に対して、複数の入出庫履歴が紐づく構成。  
 　そのため、products.id を親として、stock_transactions.product_id に外部キーを設定。
 
 ## 2. テーブル概要
@@ -23,7 +23,7 @@
 | lead_time_days | smallint | リードタイム |
 | created_at / updated_at | timestamp | 登録・更新日時 |
 
-※ product_code はユニーク制約。
+※ product_code はユニーク制約。  
 ※ 現在庫は IN/OUT の履歴から算出するため保持しない。
 
 ### 2.2 stock_transactions
@@ -39,5 +39,5 @@
 
 ## 3. 派生情報（クエリで算出）
 - **現在庫**：該当商品の入庫（IN）合計から出庫（OUT）合計を差し引いて算出
-- **後で編集：予測入力系列**：出庫（OUT）件を日別集計した時系列
+- **予測入力系列**：出庫（OUT）件を日別集計した時系列
 
