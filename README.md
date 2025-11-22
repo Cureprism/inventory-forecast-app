@@ -5,7 +5,7 @@
 
 ## デモ
 URL: https://inventory-forecast-app-bfb4db13bcbc.herokuapp.com/login  
-ログイン: demo[at]example.com / demo1234
+ログイン: demo [at] example.com / demo1234
 
 ## 主な設計ポイント
 - 商品と入出庫履歴を1対多で管理
