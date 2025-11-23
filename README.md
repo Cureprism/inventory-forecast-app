@@ -14,6 +14,6 @@ URL: https://inventory-forecast-app-bfb4db13bcbc.herokuapp.com/login
 
 ## 設計ドキュメント
 - [要件定義書](docs/01_requirements.md)
-- [DB設計書](docs/02_data_design.md)
+- [データベース設計書](docs/02_data_design.md)
 - [在庫予測ロジック](docs/03_data_design.md)
-- [在庫予測ロジック検証](docs/04_foracast_logic_verification.md)
+- [在庫予測ロジック検証記録](docs/04_foracast_logic_verification.md)
